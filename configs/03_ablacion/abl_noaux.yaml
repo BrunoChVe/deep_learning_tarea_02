@@ -1,0 +1,37 @@
+# abl_noaux — Ablación sobre k = 4: sin la pérdida auxiliar del SimBlock (Ec. 6).
+# Resultado medido: val MSE 0.01229 ± 0.00008 · NSE mediana 0.634 (3 semillas)
+# Uso: python src/entrenar.py --config configs/03_ablacion/abl_noaux.yaml --seed 42   # → outputs/abl_noaux_s42
+nombre: abl_noaux
+descripcion: 'Ablación sobre k = 4: sin la pérdida auxiliar del SimBlock (Ec. 6).'
+semillas:
+- 42
+- 43
+- 44
+model:
+  name: adapformer
+  T: 336
+  L: 48
+  N: 12
+  D: 256
+  r: 32
+  d: 64
+  k: 4
+  E: 2
+  nhead: 8
+  H: 512
+  dropout: 0.1
+  use_ace: true
+  acf_mode: topk
+  anchor_last: true
+  basin_emb: false
+  emb_mlp: false
+train:
+  loss: log
+  lam_mmh: 20.0
+  no_aux: true
+  ema: 0.0
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 5
+  batch: 512

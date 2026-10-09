@@ -1,0 +1,28 @@
+# lstm — Modelo base: LSTM 2×128 con la misma RevIN, anclaje, pérdida y scheduler.
+# Resultado medido: val MSE 0.01119 ± 0.00024 · NSE mediana 0.653 (3 semillas)
+# Uso: python src/entrenar.py --config configs/02_base/lstm.yaml --seed 42   # → outputs/lstm_s42
+nombre: lstm
+descripcion: 'Modelo base: LSTM 2×128 con la misma RevIN, anclaje, pérdida y scheduler.'
+semillas:
+- 42
+- 43
+- 44
+model:
+  name: lstm
+  N: 12
+  L: 48
+  hidden: 128
+  layers: 2
+  dropout: 0.1
+  anchor_last: true
+  basin_emb: false
+train:
+  loss: log
+  lam_mmh: 20.0
+  no_aux: false
+  ema: 0.0
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 5
+  batch: 512

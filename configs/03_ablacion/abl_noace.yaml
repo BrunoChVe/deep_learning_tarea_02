@@ -1,0 +1,37 @@
+# abl_noace — Ablación sobre k = 4: sin ACE.
+# Resultado medido: val MSE 0.01206 ± 0.00013 · NSE mediana 0.633 (3 semillas)
+# Uso: python src/entrenar.py --config configs/03_ablacion/abl_noace.yaml --seed 42   # → outputs/abl_noace_s42
+nombre: abl_noace
+descripcion: 'Ablación sobre k = 4: sin ACE.'
+semillas:
+- 42
+- 43
+- 44
+model:
+  name: adapformer
+  T: 336
+  L: 48
+  N: 12
+  D: 256
+  r: 32
+  d: 64
+  k: 4
+  E: 2
+  nhead: 8
+  H: 512
+  dropout: 0.1
+  use_ace: false
+  acf_mode: topk
+  anchor_last: true
+  basin_emb: false
+  emb_mlp: false
+train:
+  loss: log
+  lam_mmh: 20.0
+  no_aux: false
+  ema: 0.0
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 5
+  batch: 512

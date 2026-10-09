@@ -1,0 +1,37 @@
+# p1_logema — Promedio móvil exponencial (EMA 0.999) de los pesos.
+# Resultado medido: val MSE 0.01214 ± 0.00014 · NSE mediana 0.643 (3 semillas)
+# Uso: python src/entrenar.py --config configs/04_mejoras_descartadas/p1_logema.yaml --seed 42   # → outputs/p1_logema_s42
+nombre: p1_logema
+descripcion: Promedio móvil exponencial (EMA 0.999) de los pesos.
+semillas:
+- 42
+- 43
+- 44
+model:
+  name: adapformer
+  T: 336
+  L: 48
+  N: 12
+  D: 256
+  r: 32
+  d: 64
+  k: 4
+  E: 2
+  nhead: 8
+  H: 512
+  dropout: 0.1
+  use_ace: true
+  acf_mode: topk
+  anchor_last: true
+  basin_emb: false
+  emb_mlp: false
+train:
+  loss: log
+  lam_mmh: 20.0
+  no_aux: false
+  ema: 0.999
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 6
+  batch: 512

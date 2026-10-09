@@ -1,0 +1,35 @@
+# af_hib — Exploración (1 semilla): pérdida híbrida con λ = 20 (mal calibrado).
+# Resultado medido: val MSE 0.01219 · NSE mediana 0.612 (1 semilla)
+# Uso: python src/entrenar.py --config configs/05_exploracion/af_hib.yaml --seed 42 --run af_hib
+nombre: af_hib
+descripcion: 'Exploración (1 semilla): pérdida híbrida con λ = 20 (mal calibrado).'
+semillas:
+- 42
+model:
+  name: adapformer
+  T: 336
+  L: 48
+  N: 12
+  D: 256
+  r: 32
+  d: 64
+  k: 4
+  E: 2
+  nhead: 8
+  H: 512
+  dropout: 0.1
+  use_ace: true
+  acf_mode: topk
+  anchor_last: true
+  basin_emb: false
+  emb_mlp: false
+train:
+  loss: hibrida
+  lam_mmh: 20.0
+  no_aux: false
+  ema: 0.0
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 5
+  batch: 512

@@ -1,0 +1,38 @@
+# final_cd — MODELO FINAL entregado: Adapformer con k = 12 (el ACF usa los 12 canales). Elegido por MSE de validación en la fase 2; se ensamblan las 3 semillas.
+# Resultado medido: val MSE 0.01132 ± 0.00019 · NSE mediana 0.652 (3 semillas)
+# Uso: python src/entrenar.py --config configs/01_final/final_cd.yaml --seed 42   # → outputs/final_cd_s42
+nombre: final_cd
+descripcion: 'MODELO FINAL entregado: Adapformer con k = 12 (el ACF usa los 12 canales). Elegido por MSE de validación
+  en la fase 2; se ensamblan las 3 semillas.'
+semillas:
+- 42
+- 43
+- 44
+model:
+  name: adapformer
+  T: 336
+  L: 48
+  N: 12
+  D: 256
+  r: 32
+  d: 64
+  k: 12
+  E: 2
+  nhead: 8
+  H: 512
+  dropout: 0.1
+  use_ace: true
+  acf_mode: cd
+  anchor_last: true
+  basin_emb: false
+  emb_mlp: false
+train:
+  loss: log
+  lam_mmh: 20.0
+  no_aux: false
+  ema: 0.0
+  epochs: 30
+  lr: 0.001
+  gamma: 0.8
+  patience: 5
+  batch: 512
